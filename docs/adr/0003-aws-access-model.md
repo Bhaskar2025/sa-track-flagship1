@@ -1,4 +1,4 @@
-# 1. AWS access model for solo learning account
+# 3. AWS access model for solo learning account
 
 ## Status
 Accepted

@@ -1,4 +1,4 @@
-# 1. Choose ECR private over Docker Hub or ECR public
+# 4. Choose ECR private over Docker Hub or ECR public
 
 ## Status
 Accepted

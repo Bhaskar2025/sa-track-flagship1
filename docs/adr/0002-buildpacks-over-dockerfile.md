@@ -1,4 +1,4 @@
-# 1. Using Spring Boot buildpacks over a hand-rolled Dockerfile
+# 2. Using Spring Boot buildpacks over a hand-rolled Dockerfile
 
 ## Status
 Accepted
