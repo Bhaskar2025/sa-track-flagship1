@@ -1,0 +1,68 @@
+name: Build and Deploy to ECS Express Mode
+
+on:
+  push:
+    branches: [main]   # change to your deploy branch
+
+permissions:
+  id-token: write   # required for OIDC
+  contents: read    # required for actions/checkout
+
+env:
+  AWS_REGION: ap-south-1
+  ECR_REPOSITORY: saflagship
+  ECS_SERVICE_NAME: saflagship-c36c             # your Express Mode service name
+  SERVICE_ARN: arn:aws:ecs:ap-south-1:880583631948:service/default/saflagship-c36c
+  CONTAINER_PORT: 8080                          # port your app listens on
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout the source
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Configure AWS credentials via OIDC
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::880583631948:role/GitHubActionsDeployRole   # your role ARN
+          aws-region: ${{ env.AWS_REGION }}
+
+      # 3. Authenticate Docker to ECR
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # 4. Setup Java 21
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      # 5. Build, tag, and push image to Amazon ECR
+      - name: Build container image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          ./gradlew bootBuildImage \
+          --imageName=$ECR_REGISTRY/$ECR_REPOSITORY:latest \
+          -PimagePlatform=linux/amd64
+
+      # 6. Push image to ECR
+      - name: Push image to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+      # 7. Deploy to ECS Express Mode
+      - name: Deploy to ECS Express Mode
+        run: |
+          aws ecs update-express-gateway-service \
+          --service-arn ${{ env.SERVICE_ARN }} \
+          --primary-container image=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest \
+          --region ${{ env.AWS_REGION }}
