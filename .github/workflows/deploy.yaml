@@ -28,7 +28,7 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::880583631948:role/GitHubActionsDeployRole   # your role ARN
+          role-to-assume: arn:aws:iam::880583631948:role/GitHubActionDeployRole   # your role ARN
           aws-region: ${{ env.AWS_REGION }}
 
       # 3. Authenticate Docker to ECR
