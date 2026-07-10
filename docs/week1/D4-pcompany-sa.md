@@ -24,4 +24,5 @@ promotion migration. Which kept running old promotions with new promotions avoid
 failures. This was not supported OOTB.
 
 ## One thing from D4 that changes how I see my 14 years of work
-I have done architecture work but I did not know it.
+Now I can name the decisions I made, explain the trade-offs behind them, and design
+future systems with that lens from the start, not just in hindsight.
