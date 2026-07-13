@@ -14,7 +14,8 @@ then its architecture. When quality attributes at single service or operation ar
 This is to determine whether system need sharding, caching, replication etc.
 - High level design - Draw and name all the components and communication between them. Name the components
 and mention the communication style among them.
-- Deep dive into one component - Deep dive into one component and explain it in detail.
+- Deep dive into one component - Deep dive into one component and explain it in detail.Interviewer probes
+failure modes, scaling and consistency and how do you recover when it breaks.
 - Trade off defense - This is to counter the trade off decisions and you should reason and justify them.
 
 ## My mock today
