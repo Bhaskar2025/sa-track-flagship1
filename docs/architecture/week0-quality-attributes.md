@@ -13,14 +13,13 @@ Express mode, keeping the blast radius small. MFA for root user.
 ### 3. Maintainability
 - Documented all the ADRs which keeps track of all the architecture decisions. Added C4 diagram to give
 clear understanding of the system. Clean gihub repo maintained.
-
+- Sacrificed rollback mechanism. For now deploying images with latest tag which prevents auto rollback.
 ## Explicitly sacrificed
 ### Scalability 
 - Using single farget instance for walking skeleton which has single point for failure as this is a test
 code, not real users.
 ### Availability 
-- As there is single farget instance, aplication will be down until its gets rebooted. If deployment fails,
-rollback will not work automatically as there is only latest tag maintained which disabled the rollback button.
+- As there is single farget instance, aplication will be down until its gets rebooted.
 ### Observability
 Though health check is maintained but there is no fine grained logging configured for the application yet.
 
@@ -30,4 +29,4 @@ decisions later.
 - Maintainability is a good habit, if we don't do it now, it will create confusion later point and i won't 
 even remember why I made this decision.
 - Scalability and Availability are not required for walking skeleton for single user and no real users.
-- Observability is required when system becomes little complex.
+- Observability deferred because system have no domain logic so far.
