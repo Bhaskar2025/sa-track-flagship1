@@ -20,18 +20,23 @@ HTTP request call.
 
 ## The three failure modes - 
 - Boundary erosion: Most common and most dangerous failure mode. Over time developers add "just one"
-cross module dependency or a direct DB call, system starts degrading.
+cross module dependency or a direct DB call, system starts degrading. Example: In Hybris, extensions calling
+each other spring beans.
 - Shared DB anti-pattern: All modules share one DB schema, FK references. Changing the schema requires
-changes multiple modules.
+changes multiple modules. Example: In Hybris, FK references across extensions, impex loading is shared.
 - Deployment coupling at scale: Single deployment unit is a bottleneck to high frequency independent
-releases by different teams.
+releases by different teams. Example: Bug in promotion module can block checkout flow.
 
 ## The boundary enforcement mechanism
+- Package-private visibility enforces that internal modules can't be imported by other modules.
 - ArchUnit can enforce this at build time. Automated tests can be written to ensure no internal package is
 imported outside.
 
+
 ## When i would choose modular monolith over layered
 - When there is plan to scale independently and need to migrate to microservices later.
+- In layered architecture, any module can call internal code of other modules while
+modular monolith enforces that modules only communicate via public APIs.
 
 ## When i would evolve past modular monolith to microservices
 - When individual teams want to scale there modules independently and need independent 
