@@ -25,4 +25,16 @@ reading from order service DB.
 ## The distributed monolith - why it's the worst outcome
 - When services are not completely independent, they share data or dependent on each other
 for completing their tasks, its called distributed monolith, this is worst than modular monolith.
-- 
+It has all the drawbacks of microservices and don't have benefits of modular monolith.
+
+## When i would recommend microservices
+- When team exceeds 15 developers, when 2 or more teams are blocking each other's deployments,
+when different components have measurably different scaling needs, when conway's law forcing the split.
+
+## When I'd argue against microservices
+- If team is less than 15 developers and has less than 6 months to launch or can't draw
+clean data ownership boundaries yet, microservices will slow delivery. The modular monolith gives 
+same boundary discipline with fraction of operational cost.
+
+## One thing from today that changed how i think
+- Always start with monolith, start breaking it into microservices when team autonomy is required.
