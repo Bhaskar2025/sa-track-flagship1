@@ -1,7 +1,7 @@
 # ADR-09 - Centralized session management via Redis
 
 ## Status
-Accepted
+Accepted [2020]
 
 ## Context
 - We had around 16 nodes. There used to be frequent deployments and even though there was no downtime
@@ -20,8 +20,8 @@ cleared on server restart.
 3. Non-sticky session replication - It provides replication of session across application servers
 in the cluster. It is difficult for logging and troubleshooting as there are lots of servers and
 request might travel through different nodes.
-4. Session replication via JGroup - In this approach, web server can redirect customer's request 
-from failed server to another server in the cluster. This might cause performance issues.
+4. Session replication via JGroup - Jgroup's UDP based replication protocol causing performance
+overhead on every request, plus fragility if the cluster experienced JGroup specific network issues.
 
 ## Consequences
 - Positive:
@@ -29,8 +29,8 @@ from failed server to another server in the cluster. This might cause performanc
     during the deployments.
 - Negative:
   - New redis cluster to manage, and new dependency for user sessions. Added operational complexity 
-  and cost for running redis cluster.
+  and cost for running redis cluster. Also, There would be brief unavailability during master failover.
 
 ## Review point
-It was never revisited till 2022 and before i worked in this project.
+- Still in production as of year 2022, never re-architected.
 
