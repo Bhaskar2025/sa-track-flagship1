@@ -12,14 +12,15 @@ All the stakeholder will validate the RFC and provide their comments and suggest
 ## The weighted trade-off matrix - RDS vs DynamoDB for Flagship 1 order data
 | Criteria Weighted         | Weight | RDS Score | DynamoDB Score | RDS Weighted | DynamoDB |
 |---------------------------|--------|-----------|----------------|--------------|----------|
-| Query Pattern Flexibility | 1      | 9         | 2              | 9            | 2        |
-| Write Throughput          | 5      | 8         | 9              | 40           | 45       |
-| Join Support              | 1      | 9         | 1              | 9            | 1        |
-| Schema Flexibility        | 4      | 1         | 9              | 4            | 36       |
+| Query Pattern Flexibility | 1      | 2         | 9              | 2            | 9        |
+| Write Throughput          | 1      | 9         | 8              | 9            | 8        |
+| Join Support              | 1      | 1         | 9              | 1            | 9        |
+| Schema Flexibility        | 4      | 2         | 9              | 8            | 36       |
 
 ## Which technology wins and why - defended
 - Query pattern flexibility is not required for order management system with only two query types.
-- This is a medium write throughput requirements (50k order/day) which can be handled by DynamoDB.
+- This is a low write throughput requirements (50k order/day which is less than 1 order/sec) 
+which can be handled easily by DynamoDB.
 - Join support is not required for these two fixed queries, Hence DynamoDB would be a better choice.
 - We don't need fixed schema requirement, hence DynamoDB would be good fit over RDS (relational DB).
 
