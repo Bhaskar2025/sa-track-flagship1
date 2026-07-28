@@ -14,8 +14,10 @@ All the stakeholder will validate the RFC and provide their comments and suggest
 |---------------------------|--------|-----------|----------------|--------------|----------|
 | Query Pattern Flexibility | 1      | 2         | 9              | 2            | 9        |
 | Write Throughput          | 1      | 9         | 8              | 9            | 8        |
-| Join Support              | 1      | 1         | 9              | 1            | 9        |
-| Schema Flexibility        | 4      | 2         | 9              | 8            | 36       |
+| Join Support              | 1      | 5         | 8              | 5            | 8        |
+| Schema Flexibility        | 3      | 2         | 6              | 6            | 18       |
+| Total                     |        |           |                | 22           | 43       |
+
 
 ## Which technology wins and why - defended
 - Query pattern flexibility is not required for order management system with only two query types.
