@@ -11,7 +11,7 @@ Accepted [2026]
 ## Decision
 - Use Java records for request/response DTOs:
     - `public record CreateURLRequest(String longUrl) {}`
-    - `public record CreateURLResponse(String shortCode, String longUrl) {}`
+    - `public record CreateURLResponse(String shortCode) {}`
 - Never return entities directly from controllers; always map to/from DTOs.
 
 ## Alternatives considered
@@ -26,8 +26,8 @@ to a client.
     - Clear API contract separate from persistence model.
     - Easier to evolve API without changing entity structure.
 - Negative:
-    - Records are final; not suitable if DTOs need inheritance or mutable builders.
-    - Slight mapping overhead between DTOs and entities (mitigated by simple mapping logic).
+  - saved.getId() requires DB round trip already inherent to save() no extra cost.
 
 ## Review point
-- Revisit if we need richer DTO behavior (validation groups, builders, inheritance) that records cannot express cleanly.
+-  Add basic validation on CreateURLRequest.longUrl before app accepts input from anywhere beyond
+your own testing - currently nothing stops an empty string or malformed value from being persisted.
