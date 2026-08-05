@@ -4,17 +4,17 @@
 Accepted [2026]
 
 ## Context
-- URL shortener needs simple CRUD for `Url` entities (save, lookup by ID, optional list/delete).
+- URL shortener needs simple CRUD for `Url` entities (save, lookup by ID).
 - Hand-rolled DAO or direct `EntityManager` would add boilerplate for standard operations.
 
 ## Decision
 - Use Spring Data JPA repository interface:
   - `UrlRepository extends JpaRepository<Url, Long>`
-- Add derived query methods (e.g., `findByShortCode`) or `@Query` as needed; avoid custom `EntityManager` unless proven necessary.
+- Use only basic CRUD methods (`save`, `findById`) as in current controller; no custom query methods added yet.
 
 ## Alternatives considered
-1. Hand-rolled DAO with `EntityManager` - Full control but high boilerplate, more error-prone, harder to maintain for simple CRUD.
-2. Spring Data JPA with custom fragments - Useful for complex queries, but unnecessary complexity for current requirements.
+1. Hand-rolled DAO - Custom DAO class implementing all CRUD operations; more code and maintenance for no extra benefit at this scale.
+2. Direct `EntityManager` use - Inject `EntityManager` and manually implement persistence logic; full control but high boilerplate and error surface for simple CRUD.
 
 ## Consequences
 - Positive:
@@ -22,8 +22,7 @@ Accepted [2026]
   - Aligns with Spring Boot best practices; easy for team to understand.
   - Easy to test with standard Spring test utilities.
 - Negative:
-  - Less fine-grained control than direct `EntityManager` for advanced tuning.
-  - Complex dynamic queries may require Criteria API or `@Query`.
+  - `saved.getId()` requires DB round trip already inherent to `save()`; no extra cost but ID is only available after persist.
 
 ## Review point
 - Revisit if we hit performance or query complexity limits that Spring Data JPA cannot address cleanly (e.g., heavy custom pagination, advanced fetch tuning).
