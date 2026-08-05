@@ -6,14 +6,6 @@
 - Minimal moving parts: single Spring Boot service, embedded H2 file DB, no external infrastructure.
 - Evidence: One repository interface (`JpaRepository<Url, Long>`), no custom DAO, no Flyway/Liquibase, no external DB.
 
-**2. Fast to build and iterate**
-- Focus on getting a working end-to-end flow quickly (create short URL, redirect by short code).
-- Evidence: Records for DTOs, zero-boilerplate repository, controller uses only `save` and `findById`.
-
-**3. Data persistence (basic durability)**
-- Data must survive application restarts within the same environment.
-- Evidence: H2 file mode (`jdbc:h2:file:/tmp/data/urlshortener`) instead of in-memory; URLs remain after restart.
-
 ## Sacrificed attribute - named honestly
 
 **Scalability / High Availability**
@@ -37,5 +29,4 @@
 
 - **Security** – Basic HTTP endpoints; no auth, rate limiting, or abuse protection yet.
 - **Performance** – Adequate for low traffic; no explicit latency/throughput targets or tuning.
-- **Observability** – Minimal logging (e.g., `System.out.println`), no metrics or distributed tracing.
 - **Maintainability** – Reasonable structure (controllers, DTOs, repository), but no formal versioning or API evolution strategy yet.
