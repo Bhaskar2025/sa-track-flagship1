@@ -1,4 +1,4 @@
-# ADR-2: Use Java records for CreateURLRequest/Response DTOs
+# ADR-11: Use Java records for CreateURLRequest/Response DTOs
 
 ## Status
 Accepted [2026]

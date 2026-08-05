@@ -1,4 +1,4 @@
-# ADR-1: Use Spring Data JPA for URL repository
+# ADR-12: Use Spring Data JPA for URL repository
 
 ## Status
 Accepted [2026]

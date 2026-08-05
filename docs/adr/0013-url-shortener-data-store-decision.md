@@ -1,4 +1,4 @@
-# ADR-3: Use H2 file mode for data store
+# ADR-13: Use H2 file mode for data store
 
 ## Status
 Accepted [2026]
