@@ -16,7 +16,9 @@ Accepted [2026]
 
 ## Alternatives considered
 1. Hand-written POJO classes - Full control but verbose for simple, immutable DTOs.
-2. Return entities directly from controllers - Simpler initially but tightly couples API to DB schema, risks over-exposure of fields, and makes versioning harder.
+2. Return entities directly from controllers - Simpler initially but tightly couples API to DB schema, 
+would expose Url.id directly in the API response - an internal primary key with no business meaning 
+to a client.
 
 ## Consequences
 - Positive:
