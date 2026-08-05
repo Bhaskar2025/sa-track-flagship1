@@ -22,7 +22,7 @@ Accepted [2026]
   - Aligns with Spring Boot best practices; easy for team to understand.
   - Easy to test with standard Spring test utilities.
 - Negative:
-  - `saved.getId()` requires DB round trip already inherent to `save()`; no extra cost but ID is only available after persist.
-
+  - There is no direct "look up by short code query", redirect path has to decode the shortcode back to 
+  long id first and then call findById. 
 ## Review point
 - Revisit if we hit performance or query complexity limits that Spring Data JPA cannot address cleanly (e.g., heavy custom pagination, advanced fetch tuning).
